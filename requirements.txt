@@ -1,0 +1,2 @@
+aiogram>=3.26,<4
+httpx[http2]>=0.28,<1

@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cloudflare-wallet-username-checker"
+version = "1.0.0"
+description = "CLI, exhaustive scanner and bilingual Telegram bot for Cloudflare Wallet handle availability"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "morozz" }]
+keywords = [
+    "cloudflare",
+    "cloudflare-wallet",
+    "cloudflare-pay",
+    "username-checker",
+    "telegram-bot",
+    "python",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Framework :: AsyncIO",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "aiogram>=3.26,<4",
+    "httpx[http2]>=0.28,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.15,<2",
+    "pytest>=8.3,<9",
+    "pytest-asyncio>=0.26,<1",
+    "ruff>=0.11,<1",
+]
+
+[project.scripts]
+cfwallet = "cloudflare_wallet_checker.cli:main"
+cfwallet-bot = "cloudflare_wallet_checker.bot:main"
+cfwallet-exhaustive = "cloudflare_wallet_checker.exhaustive:main"
+
+[project.urls]
+Homepage = "https://github.com/rnqg/cloudflare-wallet-username-checker"
+Issues = "https://github.com/rnqg/cloudflare-wallet-username-checker/issues"
+Repository = "https://github.com/rnqg/cloudflare-wallet-username-checker"
+
+[tool.setuptools.packages.find]
+include = ["cloudflare_wallet_checker*"]
+
+[tool.pytest.ini_options]
+addopts = "-q --basetemp=.pytest-tmp"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC", "RUF"]
+ignore = ["E501", "RUF001"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+packages = ["cloudflare_wallet_checker"]
